@@ -12,7 +12,7 @@ namespace PDFlibHelper.Engines
         {
             int freeSpaceLine = 0; // จำนวนบรรทัดที่ห่างจากชื่อลูกค้า
             pdf
-                .BeginPage(header.Header.BankDatas.CustName, avoidNull(header.Header.JobNo), 0, "ชื่อหัวเรื่อง ถ้าไม่มีให้ลบออก")
+                .BeginPage(header.Header.BankDatas.CustName, avoidNull(header.Header.JobNo), freeSpaceLine, "ชื่อหัวเรื่อง ถ้าไม่มีให้ลบออก")
                     .Text("ข้อความ 1")
                 .EndPage();
 
@@ -35,6 +35,7 @@ namespace PDFlibHelper.Engines
                 .DrawLine().NewLine()
                 .CheckBox("ข้อความ A",true).NewLine()
                 .CheckBox("ข้อความ B",false).NewLine()
+                .Guidline()
                 .DrawRectangle(35, 350, 560, 80)
                 .EndPage();
             return this;
