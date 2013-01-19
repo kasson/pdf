@@ -17,9 +17,9 @@ namespace PDFlibHelper
 
 
             sheet
-                .Page1_16(pdf, _Mock.AppraisalArchive)
-                //.TEST(pdf, _Mock.AppraisalArchive)
-                //.Page5_19(pdf,_Mock.AppraisalArchive)
+                .Work(pdf, _Mock.AppraisalArchive)
+                .Example(pdf,_Mock.AppraisalArchive)
+                //.Page5_19(pdf, _Mock.AppraisalArchive)
                 //.Sheet01(pdf, _Mock.AppraisalArchive, _Mock.LB_WorksheetModel)
                 //.Sheet02(pdf, _Mock.AppraisalArchive, _Mock.LB_LocationModel, _Mock.LB_LanddocModel, _Mock.LB_PriceSummaryModel)
                 //.Sheet03(pdf, _Mock.AppraisalArchive, _Mock.LB_BuildingModel)

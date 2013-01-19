@@ -13,8 +13,12 @@ namespace PDFlibHelper
     {
         #region Fields
 
+        private const int LeftMargin = 20;
+        private const int RightMargin = 575;
         private const int StartPosition = 28;
         private const int PageHeight = 800;
+        private const double DefaultLineThick = 1;
+        private const double BoldLineThick = 1.5;
         private const double DefaultFontSize = 9.5;
         private const double BoldFontSize = 10;
         private const double HeaderFontSize = 12;
@@ -123,7 +127,7 @@ namespace PDFlibHelper
                 lineSpaceCount++;
             }
 
-            TextBold("ชื่อลูกค้า", 20)
+            TextBold("ชื่อลูกค้า", LeftMargin)
                 .Text("..................................................................................", 60, dotPosition)
                 .Text(customerName, 60)
                 .TextBold("รหัสเรื่อง", 300)
@@ -133,14 +137,14 @@ namespace PDFlibHelper
                 .NewLine();
 
             Writer.setfont(defaultFont(), 9);
-            Writer.setlinewidth(1.5);
+            Writer.setlinewidth(BoldLineThick);
             Writer.setcolor("stroke", "rgb", 0.0, 0.0, 0.0, 0.0);
 
             lineWidth -= 15 * lineSpaceCount;
-            Writer.rect(20, 20, 555, lineWidth);
+            Writer.rect(LeftMargin, 20, 555, lineWidth);
             Writer.stroke();
 
-            Writer.setlinewidth(1);
+            Writer.setlinewidth(DefaultLineThick);
             return this;
         }
 
@@ -342,20 +346,34 @@ namespace PDFlibHelper
         }
 
         /// <summary>
-        /// เขียนเส้น
+        /// ขีดเส้นใต้
         /// </summary>
-        /// <param name="beginX">จุดเริ่มต้นในแนวนอน</param>
-        /// <param name="beginY">จุดเริ่มต้นในแนวตั้ง</param>
-        /// <param name="toX">จุดสิ้นสุดในแนวนอน</param>
-        /// <param name="toY">จุดสิ้นสุดในแนวนอน</param>
         /// <returns>this</returns>
-        public PDFGenerator DrawLine(int beginX, int beginY, int toX, int toY)
+        public PDFGenerator DrawLine()
         {
-            Writer.moveto(beginX, beginY);
-            Writer.lineto(toX, toY);
+            Writer.setlinewidth(BoldLineThick);
+            Writer.moveto(LeftMargin, _currentCursorY);
+            Writer.lineto(RightMargin, _currentCursorY);
             Writer.stroke();
-            return this;
+            Writer.setlinewidth(DefaultLineThick);
+            return NewLine();
         }
+
+        ///// <summary>
+        ///// เขียนเส้น
+        ///// </summary>
+        ///// <param name="beginX">จุดเริ่มต้นในแนวนอน</param>
+        ///// <param name="beginY">จุดเริ่มต้นในแนวตั้ง</param>
+        ///// <param name="toX">จุดสิ้นสุดในแนวนอน</param>
+        ///// <param name="toY">จุดสิ้นสุดในแนวนอน</param>
+        ///// <returns>this</returns>
+        //public PDFGenerator DrawLine(int beginX, int beginY, int toX, int toY)
+        //{
+        //    Writer.moveto(beginX, beginY);
+        //    Writer.lineto(toX, toY);
+        //    Writer.stroke();
+        //    return this;
+        //}
 
         /// <summary>
         /// แสดงผลรูป

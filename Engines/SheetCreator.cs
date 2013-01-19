@@ -8,51 +8,21 @@ namespace PDFlibHelper.Engines
 {
     public class SheetCreator
     {
-        public SheetCreator Page1_16(PDFGenerator pdf, AppraisalArchive header)
+        public SheetCreator Work(PDFGenerator pdf, AppraisalArchive header)
         {
+            int freeSpaceLine = 0; // จำนวนบรรทัดที่ห่างจากชื่อลูกค้า
             pdf
-                .BeginPage("นายจักรกฤษ อำไพจิตร","132313",2,"แบบสำรวจและรายงาน")
-                    .TextBold("ประเภทงาน").Tab(3).Text("สินเชื่อทั่วไป").Tab(3).Text("วันที่สำรวจ").NewLine()
-                    .TextBold("สาขา") .NewLine(2)
-                    .Text("AAAAAAAAAAAAAAAAAAAAAA",200,540).NewLine()
-                    .CheckBox("lasdjajdalsjdalsjdlasj",true).NewLine()
-                    .CheckBox("lasdjajdalsjdalsjdlasj", false).NewLine()
-
-                    .Guidline()
+                .BeginPage(header.Header.BankDatas.CustName, avoidNull(header.Header.JobNo), 0, "ชื่อหัวเรื่อง ถ้าไม่มีให้ลบออก")
+                    .Text("ข้อความ 1")
                 .EndPage();
-
 
             return this;
         }
 
-
-        public SheetCreator TEST(PDFGenerator pdf, AppraisalArchive header)
+        public SheetCreator Example(PDFGenerator pdf, AppraisalArchive header)
         {
             pdf
-                .BeginPage(header.Header.BankDatas.CustName, avoidNull(header.Header.JobNo),0,"7.1 วิธีการประเมินมูลค่าสิทธิการเช่า")
-                    .BeginTable()
-                        .TableHeader("A",200).TableHeader("B",200).TableNewRow()
-                        .TableColumn(@"When we vertically center con-tents of various types in the table cells, they will be positioned with varying distance 
-from the borders. In Figure 8.30a, the four text line cells have beenplaced with the fol-lowing option lis",200)
-                        .TableColumn(@"The Textflow cell is added withoutany special options. Since we vertically centered the 
-text lines, the Benefitline will move down with the height of the Textflow.
-Fig. 8.30 Aligning text lines and Textflow in table cells").TableNewRow()
-                    .EndTable()
-                    .SetLinePosition(580)
-                    .Text("สวัสดีครับ").NewLine()
-                    .Text("สวัสดีครับ").NewLine()
-                    .Text("สวัสดีครับ").NewLine()
-                    .Text("สวัสดีครับ").NewLine()
-                    .Text("สวัสดีครับ").NewLine()
-                    .Guidline()
-                .EndPage();
-            return this;
-        }
-
-        public SheetCreator Page5_19(PDFGenerator pdf, AppraisalArchive header)
-        {
-            pdf
-                .BeginPage(header.Header.BankDatas.CustName, avoidNull(header.Header.JobNo),0,"7.1 วิธีการประเมินมูลค่าสิทธิการเช่า")
+                .BeginPage(header.Header.BankDatas.CustName, avoidNull(header.Header.JobNo), 0, "7.1 วิธีการประเมินมูลค่าสิทธิการเช่า")
                 .NewLine()
                 .TextBold("วิธีการประเมินมูลค่าสิทธิการเช่า โดยวิธีทางด้านรายได้ Discounted Cash Flow").NewLine(2)
                 .Tab(2).Text("โดยทั่วไป การประมูลค่าสิทธิการเช่าจะหมายถึงการหามูลค่าของผู้เช่า ซึ่งมูลค่าสิทธิการเช่าจะมีมูลค่าก็ต่อเมื่อผู้เช่าจ่ายค่าเช่า").NewLine()
@@ -61,21 +31,40 @@ Fig. 8.30 Aligning text lines and Textflow in table cells").TableNewRow()
                 .Tab(2).Text("ซึ่งกำไรจากการเช่า").Tab(5).Text("=").Tab().Text("ค่าเช่าในราคาตลาด - ค่าเช่าที่จ่ายตามสัญญา").NewLine()
                 .Tab(2).Text("(ผู้เช่าจะได้รับกำไรจากการเช่าก็ต่อเมื่อ)").Tab(9).Text(":").Tab().Text("ค่าเช่าในตลาด > ค่าเช่าที่จ่ายตามในสัญญา").NewLine(2)
                 .Tab(2).Text("การหามูลค่ากำไรจากค่าเช่า (ซึ่งกำไรจากการเช่า = ค่าเช่าในราคาตลาด - ค่าเช่าในสัญญา) ทั้งหมดตลอดอายุสัญญาเช่าที่เหลือ").NewLine()
-                .Text("ในสัญญา แล้วนำมาหาเป็นมูลค่าปัจจุบัน โดยวิธี Discounted Cash Flow")
-                .DrawRectangle(35,590,560,360)
+                .Text("ในสัญญา แล้วนำมาหาเป็นมูลค่าปัจจุบัน โดยวิธี Discounted Cash Flow").NewLine()
+                .DrawLine().NewLine()
+                .CheckBox("ข้อความ A",true).NewLine()
+                .CheckBox("ข้อความ B",false).NewLine()
                 .DrawRectangle(35, 350, 560, 80)
-                //.Guidline()
                 .EndPage();
             return this;
         }
+
+        //public SheetCreator Page5_19(PDFGenerator pdf, AppraisalArchive header)
+        //{
+        //    pdf
+        //        .BeginPage(header.Header.BankDatas.CustName, avoidNull(header.Header.JobNo),0,"7.1 วิธีการประเมินมูลค่าสิทธิการเช่า")
+        //        .NewLine()
+        //        .TextBold("วิธีการประเมินมูลค่าสิทธิการเช่า โดยวิธีทางด้านรายได้ Discounted Cash Flow").NewLine(2)
+        //        .Tab(2).Text("โดยทั่วไป การประมูลค่าสิทธิการเช่าจะหมายถึงการหามูลค่าของผู้เช่า ซึ่งมูลค่าสิทธิการเช่าจะมีมูลค่าก็ต่อเมื่อผู้เช่าจ่ายค่าเช่า").NewLine()
+        //        .Text("ต่ำกว่าราคาเช่าตลาด ทำให้ผู้เช่าได้กำไรจากการเสียค่าเช่าในสัญญาต่ำกว่าราคาเช่าในตลาด").NewLine(2)
+        //        .Tab(2).Text("มูลค่าของสิทธิการเช่า").Tab(5).Text("=").Tab().Text("มูลค่าปัจจุบันทั้งหมดของกำไรจากการเช่าตลอดอายุสัญญาที่เหลือ").NewLine()
+        //        .Tab(2).Text("ซึ่งกำไรจากการเช่า").Tab(5).Text("=").Tab().Text("ค่าเช่าในราคาตลาด - ค่าเช่าที่จ่ายตามสัญญา").NewLine()
+        //        .Tab(2).Text("(ผู้เช่าจะได้รับกำไรจากการเช่าก็ต่อเมื่อ)").Tab(9).Text(":").Tab().Text("ค่าเช่าในตลาด > ค่าเช่าที่จ่ายตามในสัญญา").NewLine(2)
+        //        .Tab(2).Text("การหามูลค่ากำไรจากค่าเช่า (ซึ่งกำไรจากการเช่า = ค่าเช่าในราคาตลาด - ค่าเช่าในสัญญา) ทั้งหมดตลอดอายุสัญญาเช่าที่เหลือ").NewLine()
+        //        .Text("ในสัญญา แล้วนำมาหาเป็นมูลค่าปัจจุบัน โดยวิธี Discounted Cash Flow").NewLine()
+        //        .DrawRectangle(35, 590, 560, 360)
+        //        .DrawRectangle(35, 350, 560, 80)
+        //        .EndPage();
+        //    return this;
+        //}
 
         public string avoidNull(string src)
         {
             return src == null ? string.Empty : src;
         }
-
-
         
+        /*
         public SheetCreator Sheet01(PDFGenerator pdf, AppraisalArchive header, LB_WorksheetModel data)
         {
             header = header == null ? new AppraisalArchive() : header;
@@ -159,7 +148,6 @@ Fig. 8.30 Aligning text lines and Textflow in table cells").TableNewRow()
 
             return this;
         }
-        /*
         public SheetCreator Sheet02(PDFGenerator pdf, AppraisalArchive header, LB_LocationModel data1, LB_LanddocModel data2, LB_PriceSummaryModel data3)
         {
             header = header == null ? new AppraisalArchive() : header;
